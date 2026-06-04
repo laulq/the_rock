@@ -1,59 +1,63 @@
 /*FAIRE DU GENERAL AU SPECIFIQUE*/
-:root{
-    --rouge:#FF3553;
-    --gris:#1E1E1E;
+:root {
+  --rouge: #ff3553;
+  --gris: #1e1e1e;
 }
 
-*{
-    background-color: black;
-    color: white;
-    scroll-behavior: smooth;
-    font-family: 'titre';
-    text-decoration: none;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: 1fr;/*mobile first donc une colonne, je modifie aux media queries*/
+* {
+  background-color: black;
+  color: white;
+  scroll-behavior: smooth;
+  font-family: "titre";
+  text-decoration: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr; /*mobile first donc une colonne, je modifie aux media queries*/
 }
 
 @font-face {
-    font-family: "titre";
-    src: url("./BebasNeue-Regular.ttf") format('truetype');/*donner à alex la font avec la feuille de style*/
+  font-family: "titre";
+  src: url("./BebasNeue-Regular.ttf") format("truetype"); /*donner à alex la font avec la feuille de style*/
 }
 @font-face {
-    font-family: "texte";
-    src: url("./gothamnarrow_medium.otf") format('truetype');/*donner à alex la font avec la feuille de style*/
+  font-family: "texte";
+  src: url("./gothamnarrow_medium.otf") format("truetype"); /*donner à alex la font avec la feuille de style*/
 }
 
-.header-nav{
-    background-color: black;
-    position: fixed;
-
+.header-nav {
+  background-color: black;
+  position: fixed;
+}
+.titre {
+    background: linear-gradient(90deg, #ff3553 0%, rgba(153, 32, 50, 0) 103.5%);
+    min-width: fit-content;
 }
 
-.texte{
-    font-family: 'texte';
+.texte {
+  font-family: "texte";
 }
-.bouton-principal {
+.bouton-principal {  
     background-color: var(--rouge);
+
 }
 
-.cta-connexion{
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
+.cta-connexion {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
 }
-
 
 /*Responsive*/
 
-@media (min-width: 768px) {/*PAS DE MAX WIDTH*/
-    /* Tablettes */
-    body {
-        font-size: 14px;
-    }
+@media (min-width: 768px) {
+  /*PAS DE MAX WIDTH*/
+  /* Tablettes */
+  body {
+    font-size: 14px;
+  }
 }
 
 @media (min-width: 1024px) {
-    /* Ordinateurs*/
+  /* Ordinateurs*/
 }

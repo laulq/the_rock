@@ -45,7 +45,7 @@
             <button><img src="placeholder_metal" alt="Sélection de radios metal"></button>
             <button><img src="placeholder_alternatif" alt="Sélection de radios alternatif"></button>
             <div id="filtres-radios">
-                <h2>FILTRER PAR</h2>
+                <h2 class="titre">FILTRER PAR</h2>
                 <div>
                     <button><img src="placeholder_popularite" alt="">POPULARITÉ</button>
                     <select name="tag" id="select_tag">
@@ -91,7 +91,7 @@
 
     <?php else: ?><!--Quand l'utilisateur est connecté!-->
         <section id="mes-radios">
-            <h1>MES RADIOS</h1>
+            <h1 class="titre">MES RADIOS</h1>
             <div id="mes-radios-liste">
                 <?php
                 $mes_radios = $radios->getRadiosUtilisateur($_SESSION['user']['id_compte']);
@@ -139,7 +139,7 @@
             <a href="#top-radios" class="bouton-principal">DÉCOUVRIR TOUTES NOS RADIOS</a>
         </section>
         <section id="top-radios">
-            <h1>TOP DU MOMENT</h1>
+            <h1 class="titre">TOP DU MOMENT</h1>
 
             <div id="top-radios-liste">
                 <?php
@@ -163,13 +163,13 @@
             </div>
         </section>
         <section id="categories">
-            <h1>CATÉGORIES</h1>
+            <h1 class="titre">CATÉGORIES</h1>
             <div class="choisir_categorie"></div>
             <button><img src="placeholder_hard_rock" alt="Sélection de radios hard rock"></button>
             <button><img src="placeholder_metal" alt="Sélection de radios metal"></button>
             <button><img src="placeholder_alternatif" alt="Sélection de radios alternatif"></button>
             <div id="filtres-radios">
-                <h2>FILTRER PAR</h2>
+                <h2 class="sous-titre">FILTRER PAR</h2>
                 <div>
                     <button><img src="placeholder_popularite" alt="">POPULARITÉ</button>
                     <select name="tag" id="select_tag">

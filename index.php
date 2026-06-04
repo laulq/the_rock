@@ -87,7 +87,7 @@ if (isset($_GET['follow']) && isset($_SESSION['user'])) {
         <?php if (!isset($_SESSION['user'])): ?>
 
             <section id="top-radios" class="top-radios">
-                <h2>TOP DU MOMENT</h2>
+                <h2 class="titre">TOP DU MOMENT</h2>
 
                 <div id="top-radios-liste">
                     <?php
@@ -109,7 +109,7 @@ if (isset($_GET['follow']) && isset($_SESSION['user'])) {
 
             <section id="cta-connexion">
                 <div id="cta-connexion-texte">
-                    <h2>VOUS EN VOULEZ PLUS ?</h2>
+                    <h2 class="titre">VOUS EN VOULEZ PLUS ?</h2>
                     <img src="./images/illus/rock_illu_mobile.svg" alt="illustration">
                     <p>Connectez-vous, et profitez de plus de 20 radios internationales.</p>
                     <p>Sauvegardez vos radios, commentez et passez un bon moment !</p>
@@ -123,7 +123,7 @@ if (isset($_GET['follow']) && isset($_SESSION['user'])) {
         <?php else: ?>
 
             <section id="dernieres-ecoutes">
-                <h2>MES DERNIÈRES ÉCOUTES</h2>
+                <h2 class="titre">MES DERNIÈRES ÉCOUTES</h2>
 
                 <div id="dernieres-ecoutes-liste">
                     <?php
@@ -140,7 +140,7 @@ if (isset($_GET['follow']) && isset($_SESSION['user'])) {
             </section>
 
             <section id="recommandations">
-                <h2>RECOMMANDATIONS</h2>
+                <h2 class="titre">RECOMMANDATIONS</h2>
 
                 <div id="recommandations-liste">
                     <?php
@@ -165,7 +165,7 @@ if (isset($_GET['follow']) && isset($_SESSION['user'])) {
             </section>
 
             <aside id="tendances">
-                <h2>TENDANCES</h2>
+                <h2 class="titre">TENDANCES</h2>
 
                 <div id="tendances-liste">
                     <?php

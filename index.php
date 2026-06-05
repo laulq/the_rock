@@ -63,7 +63,7 @@ if (isset($_GET['follow']) && isset($_SESSION['user'])) {
                 <?php if (!isset($_SESSION['user'])): ?>
                     <div class="carrousel-cta-slide current">
                         <a href="profil.php" class="bouton-principal">SE CONNECTER</a>
-                        <a href="inscription.php" class="bouton-secondaire">S'INSCRIRE</a>
+                        <a href="profil.php" class="bouton-secondaire">S'INSCRIRE</a>
                     </div>
                 <?php else: ?>
                     <div class="carrousel-cta-slide current">
@@ -87,20 +87,20 @@ if (isset($_GET['follow']) && isset($_SESSION['user'])) {
         <?php if (!isset($_SESSION['user'])): ?>
 
             <section id="top-radios" class="top-radios">
-                <h2 class="titre">TOP DU MOMENT</h2>
+                <h2>TOP DU MOMENT</h2>
 
                 <div id="top-radios-liste">
                     <?php
                     $top_radios = $radios->getTopRadios();
                     $rang = 1;
                     foreach ($top_radios as $radio): ?>
-                        <div class="radio-carte">
+                        <a href="radio.php?id=<?= $radio['id_radio'] ?>" class="radio-carte">
                             <span class="radio-rang"><?= $rang ?></span>
                             <img src="<?= htmlspecialchars($radio['image_radio']) ?>"
                                 alt="<?= htmlspecialchars($radio['nom_radio']) ?>">
                             <p class="radio-nom"><?= htmlspecialchars($radio['nom_radio']) ?></p>
                             <p class="radio-pays"><?= htmlspecialchars($radio['localisation_radio']) ?></p>
-                        </div>
+                        </a>
                         <?php $rang++; endforeach; ?>
                 </div>
 
@@ -109,13 +109,13 @@ if (isset($_GET['follow']) && isset($_SESSION['user'])) {
 
             <section id="cta-connexion">
                 <div id="cta-connexion-texte">
-                    <h2 class="titre">VOUS EN VOULEZ PLUS ?</h2>
+                    <h2>VOUS EN VOULEZ PLUS ?</h2>
                     <img src="./images/illus/rock_illu_mobile.svg" alt="illustration">
                     <p>Connectez-vous, et profitez de plus de 20 radios internationales.</p>
                     <p>Sauvegardez vos radios, commentez et passez un bon moment !</p>
                     <div id="cta-connexion-boutons">
                         <a href="profil.php" class="bouton-principal">SE CONNECTER</a>
-                        <a href="inscription.php" class="bouton-secondaire">S'INSCRIRE</a>
+                        <a href="profil.php" class="bouton-secondaire">S'INSCRIRE</a>
                     </div>
                 </div>
             </section>
@@ -123,35 +123,35 @@ if (isset($_GET['follow']) && isset($_SESSION['user'])) {
         <?php else: ?>
 
             <section id="dernieres-ecoutes">
-                <h2 class="titre">MES DERNIÈRES ÉCOUTES</h2>
+                <h2>MES DERNIÈRES ÉCOUTES</h2>
 
                 <div id="dernieres-ecoutes-liste">
                     <?php
                     $dernieres_ecoutes = $radios->getDernieresEcoutes($_SESSION['user']['id_compte']);
                     foreach ($dernieres_ecoutes as $ecoute): ?>
-                        <div class="radio-carte">
+                        <a href="radio.php?id=<?= $ecoute['id_radio'] ?>" class="radio-carte">
                             <img src="<?= htmlspecialchars($ecoute['image_radio']) ?>"
                                 alt="<?= htmlspecialchars($ecoute['nom_radio']) ?>">
                             <p class="radio-nom"><?= htmlspecialchars($ecoute['nom_radio']) ?></p>
                             <p class="radio-pays"><?= htmlspecialchars($ecoute['localisation_radio']) ?></p>
-                        </div>
+                        </a>
                     <?php endforeach; ?>
                 </div>
             </section>
 
             <section id="recommandations">
-                <h2 class="titre">RECOMMANDATIONS</h2>
+                <h2>RECOMMANDATIONS</h2>
 
                 <div id="recommandations-liste">
                     <?php
                     $recommandations = $radios->getRecommandations($_SESSION['user']['id_compte']);
                     foreach ($recommandations as $radio): ?>
-                        <div class="radio-carte">
+                        <a href="radio.php?id=<?= $radio['id_radio'] ?>" class="radio-carte">
                             <img src="<?= htmlspecialchars($radio['image_radio']) ?>"
                                 alt="<?= htmlspecialchars($radio['nom_radio']) ?>">
                             <p class="radio-nom"><?= htmlspecialchars($radio['nom_radio']) ?></p>
                             <p class="radio-pays"><?= htmlspecialchars($radio['localisation_radio']) ?></p>
-                        </div>
+                        </a>
                     <?php endforeach; ?>
 
                     <!-- Carte "suivante" avec bouton play -->
@@ -165,21 +165,23 @@ if (isset($_GET['follow']) && isset($_SESSION['user'])) {
             </section>
 
             <aside id="tendances">
-                <h2 class="titre">TENDANCES</h2>
+                <h2>TENDANCES</h2>
 
                 <div id="tendances-liste">
                     <?php
                     $tendances = $radios->getTendances();
                     foreach ($tendances as $radio):
                         $estSuivie = $radios->estSuivie($_SESSION['user']['id_compte'], $radio['id_radio']);
-                        ?>
+                    ?>
                         <div class="tendance-carte">
-                            <img src="<?= htmlspecialchars($radio['image_radio']) ?>"
-                                alt="<?= htmlspecialchars($radio['nom_radio']) ?>">
-                            <div class="tendance-carte-infos">
-                                <p class="radio-nom"><?= htmlspecialchars($radio['nom_radio']) ?></p>
-                                <p class="radio-abonnes"><?= $radio['nb_abonnes'] ?> ABONNÉS</p>
-                            </div>
+                            <a href="radio.php?id=<?= $radio['id_radio'] ?>" class="tendance-carte-lien">
+                                <img src="<?= htmlspecialchars($radio['image_radio']) ?>"
+                                    alt="<?= htmlspecialchars($radio['nom_radio']) ?>">
+                                <div class="tendance-carte-infos">
+                                    <p class="radio-nom"><?= htmlspecialchars($radio['nom_radio']) ?></p>
+                                    <p class="radio-abonnes"><?= $radio['nb_abonnes'] ?> ABONNÉS</p>
+                                </div>
+                            </a>
                             <a href="?follow=<?= $radio['id_radio'] ?>" class="bouton-suivre <?= $estSuivie ? 'suivie' : '' ?>">
                                 <?= $estSuivie ? 'SUIVIE' : 'SUIVRE +' ?>
                             </a>

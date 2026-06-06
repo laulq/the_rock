@@ -334,4 +334,64 @@ EOF;
         }
         return $succes;
     }
+
+     /**
+     * Inscrire un nouveau membre ==> ajouté par Lola avec Mr Corbière
+     *
+     * @param string $pseudo
+     * @param string $mail
+     * @param string $mdp
+     *            
+     * @exception string
+     */
+    public function inscrire($pseudo, $mail, $mdp)
+    {
+        $erreur = "" ;
+		if(!empty($pseudo) 
+			AND !empty($mail)
+			AND !empty($mdp)) {
+			$pseudo = htmlspecialchars($pseudo);
+			$mail = htmlspecialchars($mail);
+			$mdp_not_crypt = $mdp ;
+			$mdp = sha1($mdp);
+			// Etape 1 : connexion au serveur de base de données
+			$pdo = new PDO("mysql:host=" . $this->myHost . ";dbname=" . $this->myDb, $this->myUser, $this->myPass);
+			$pdo->query("SET NAMES utf8");
+			$pdo->query("SET CHARACTER SET 'utf8'");
+			$pdo->query("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'STRICT_TRANS_TABLES',''))");
+			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			
+			$pseudolength = mb_strlen($pseudo);
+			if($pseudolength <= 255) {
+				if(filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+					$reqmail = $pdo->prepare("SELECT * FROM Compte WHERE adresse_compte = ?");
+					$reqmail->execute(array($mail));
+					$ligne = $reqmail->fetch(PDO::FETCH_ASSOC) ;
+					if($ligne == false) {
+						if(mb_strlen($mdp_not_crypt) >= 4) {
+							// Etape 2 : envoi de la requête SQL au serveur
+							$statement = $pdo->prepare("INSERT INTO Compte(pseudo_compte, adresse_compte, mot_de_passe) VALUES(?, ?, ?)");
+							$statement->execute(array($pseudo, $mail, $mdp));
+						} else {
+							$erreur = "Votre mot de passe doit posséder au moins 4 caractères !";
+						}
+					} else {
+						$erreur = "Adresse mail déjà utilisée !";
+					}
+				} else {
+					$erreur = "Votre adresse mail n'est pas valide !";
+				}
+			} else {
+				$erreur = "Votre pseudo ne doit pas dépasser 255 caractères !";
+			}
+			// Etape 4 : ferme la connexion au serveur de base de données
+			$pdo = null ;
+		} else {
+			$erreur = "Tous les champs doivent être complétés !";
+		}
+		if ($erreur != "") {
+			throw new Exception($erreur);
+		}
+	}  
+
 }

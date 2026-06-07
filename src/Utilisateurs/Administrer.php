@@ -68,8 +68,8 @@ class Administrer
                 CREATE TABLE IF NOT EXISTS Compte (
                     id_compte           SMALLINT        PRIMARY KEY AUTO_INCREMENT,
                     pseudo_compte       VARCHAR(50)     NOT NULL UNIQUE,
-                    nom_compte          VARCHAR(50)     NOT NULL,
-                    prenom_compte       VARCHAR(50)     NOT NULL,
+                    nom_compte          VARCHAR(50),
+                    prenom_compte       VARCHAR(50),
                     adresse_compte      VARCHAR(255)    NOT NULL,
                     code_verif          VARCHAR(4),
                     verifie_compte      BOOLEAN         NOT NULL DEFAULT FALSE,
@@ -139,25 +139,21 @@ EOF;
      * Ajouter un utilisateur
      *
      * @param string $pseudo
-     * @param string $nom
-     * @param string $prenom
      * @param string $adresse
      * @param string $mdp
      * @param string $code_verif
      * @return bool
      */
-    public function ajouterUtilisateur(string $pseudo, string $nom, string $prenom, string $adresse, string $mdp, string $code_verif): bool
+    public function ajouterUtilisateur(string $pseudo, string $adresse, string $mdp, string $code_verif): bool
     {
         $succes = false;
         try {
             $pdo = $this->connexion();
-            $requeteSQL = "INSERT INTO Compte (pseudo_compte, nom_compte, prenom_compte, adresse_compte, mdp_compte, code_verif, verifie_compte)
-                           VALUES (:pseudo, :nom, :prenom, :adresse, :mdp, :code_verif, FALSE)";
+            $requeteSQL = "INSERT INTO Compte (pseudo_compte, adresse_compte, mdp_compte, code_verif, verifie_compte)
+                           VALUES (:pseudo, :adresse, :mdp, :code_verif, FALSE)";
             $statement  = $pdo->prepare($requeteSQL);
             $succes = $statement->execute([
                 ':pseudo'     => $pseudo,
-                ':nom'        => $nom,
-                ':prenom'     => $prenom,
                 ':adresse'    => $adresse,
                 ':mdp'        => password_hash($mdp, PASSWORD_DEFAULT),
                 ':code_verif' => $code_verif
@@ -335,3 +331,4 @@ EOF;
         return $succes;
     }
 }
+

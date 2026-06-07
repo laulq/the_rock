@@ -10,6 +10,7 @@
   scroll-behavior: smooth;
   font-family: "titre";
   text-decoration: none;
+  list-style-type: none;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -42,7 +43,7 @@ main {
 
 section {
   width: 100%;
-  padding: 2rem 1rem; /* respiration mobile */
+  padding: 2rem 1rem; /*marges (tjrs sur mobile)*/
 }
 
 .titre {
@@ -55,12 +56,63 @@ section {
 }
 .bouton-principal {  
     background-color: var(--rouge);
+}
 
+.bouton-secondaire{
+  background-color: var(--gris);
 }
 
 .cta-connexion {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
+}
+
+/* Pour le dropdown des boutons de filtre */
+.dropdown {
+    position: relative; /* ← ancre le menu en dessous */
+}
+
+.dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dropdown.open {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute; /* ← sort du flux, se place sous le bouton */
+    top: 100%;          /* ← juste en dessous du bouton */
+    left: 0;
+    list-style: none;
+    background: var(--gris) ;
+    border: 1px solid ;
+    border-radius: 4px;
+    min-width: 100%;
+    z-index: 50;
+    overflow: hidden;
+}
+
+.dropdown.open .dropdown-menu {
+    display: block; /* ← affiché quand la classe .open est présente */
+}
+
+.dropdown-menu li button {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    background: none;
+    border: none;
+    color: white;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.dropdown-menu li button:hover {
+    background: var(--rouge);
 }
 
 /*Responsive*/

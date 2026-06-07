@@ -70,21 +70,21 @@ $estFavori     = isset($_SESSION['user']) ? $radios->estFavori($_SESSION['user']
         <?php include 'composants/header.php'; ?>
 
         <main>
-            <div id="radio-page">
+            <div class="radio-page">
 
-                <div id="radio-contenu">
+                <div class="radio-contenu">
 
                     <!-- EN-TÊTE RADIO -->
-                    <section id="radio-entete">
+                    <section class="radio-entete">
                         <img src="<?= htmlspecialchars($radio['image_radio'] ?? 'placeholder_radio') ?>" alt="<?= htmlspecialchars($radio['nom_radio']) ?>">
 
-                        <div id="radio-entete-infos">
+                        <div class="radio-entete-infos">
                             <h1><?= htmlspecialchars($radio['nom_radio']) ?></h1>
-                            <p id="radio-abonnes"><?= $nbAbonnes ?> ABONNÉS</p>
+                            <p class="radio-abonnes"><?= $nbAbonnes ?> ABONNÉS</p>
 
-                            <div id="radio-actions">
+                            <div class="radio-actions">
                                 <!-- Bouton play -->
-                                <a href="#" id="bouton-play-radio"><img src="placeholder_play" alt="play"></a>
+                                <a href="#" class="bouton-play-radio"><img src="placeholder_play" alt="play"></a>
 
                                 <!-- Favori -->
                                 <?php if (isset($_SESSION['user'])) : ?>
@@ -92,18 +92,18 @@ $estFavori     = isset($_SESSION['user']) ? $radios->estFavori($_SESSION['user']
                                         <img src="placeholder_coeur" alt="favori">
                                     </a>
                                 <?php else : ?>
-                                    <a href="profil.php" id="bouton-favori">
+                                    <a href="profil.php" class="bouton-favori">
                                         <img src="placeholder_coeur" alt="favori">
                                     </a>
                                 <?php endif; ?>
 
                                 <!-- Partage -->
-                                <a href="#" id="bouton-partage">
+                                <a href="#" class="bouton-partage">
                                     <img src="placeholder_partage" alt="partager">
                                 </a>
 
                                 <!-- Tags -->
-                                <div id="radio-tags">
+                                <div class="radio-tags">
                                     <?php foreach ($tags as $tag) : ?>
                                         <a href="liste.php?tag=<?= htmlspecialchars($tag['nom_tag']) ?>" class="radio-tag">
                                             <img src="placeholder_tag" alt="tag">
@@ -116,18 +116,18 @@ $estFavori     = isset($_SESSION['user']) ? $radios->estFavori($_SESSION['user']
                     </section>
 
                     <!-- À PROPOS -->
-                    <section id="radio-apropos">
+                    <section class="radio-apropos">
                         <h2>A PROPOS</h2>
                         <p><?= htmlspecialchars($radio['slogan_radio'] ?? 'Aucune description disponible.') ?></p>
                     </section>
 
                     <!-- COMMENTAIRES -->
-                    <section id="radio-commentaires">
+                    <section class="radio-commentaires">
                         <h2>COMMENTAIRES</h2>
 
                         <!-- Formulaire d'ajout (à modifier) -->
                         <?php if (isset($_SESSION['user'])) : ?>
-                            <div id="commentaire-form">
+                            <div class="commentaire-form">
                                 <img src="<?= htmlspecialchars($profil['photo_profil'] ?? 'placeholder_photo') ?>" alt="photo de profil">
                                 <form method="POST" action="radio.php?id=<?= $id_radio ?>">
                                     <input type="hidden" name="action" value="commenter">
@@ -138,7 +138,7 @@ $estFavori     = isset($_SESSION['user']) ? $radios->estFavori($_SESSION['user']
                         <?php endif; ?>
 
                         <!-- Liste des commentaires -->
-                        <div id="commentaires-liste">
+                        <div class="commentaires-liste">
                             <?php foreach ($commentaires as $commentaire) :
                                 $estLike = isset($_SESSION['user'])
                                     ? $radios->estLike($_SESSION['user']['id_compte'], $commentaire['id_commentaire'])
@@ -164,9 +164,9 @@ $estFavori     = isset($_SESSION['user']) ? $radios->estFavori($_SESSION['user']
                 </div>
 
                 <!-- SUGGESTIONS -->
-                <aside id="radio-suggestions">
+                <aside class="radio-suggestions">
                     <h2>VOUS AIMEREZ AUSSI...</h2>
-                    <div id="radio-suggestions-liste">
+                    <div class="radio-suggestions-liste">
                         <?php foreach ($suggestions as $suggestion) : ?>
                             <a href="radio.php?id=<?= $suggestion['id_radio'] ?>" class="suggestion-carte">
                                 <img src="<?= htmlspecialchars($suggestion['image_radio'] ?? 'placeholder_radio') ?>" alt="<?= htmlspecialchars($suggestion['nom_radio']) ?>">

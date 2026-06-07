@@ -141,7 +141,7 @@ $etape = $_GET['etape'] ?? 'inscription';
                 <?php if ($etape === 'verification') : ?>
 
                     <!-- ÉTAPE 3 : Vérification du code -->
-                    <section id="verification">
+                    <section class="verification">
                         <h1>INSCRIPTION</h1>
                         <h2>Un instant !</h2>
                         <p>Confirmez votre inscription en renseignant le code envoyé à votre adresse mail.</p>
@@ -152,7 +152,7 @@ $etape = $_GET['etape'] ?? 'inscription';
 
                         <form method="POST" action="profil.php?etape=verification" id="form-verification">
                             <input type="hidden" name="action" value="verification">
-                            <div id="verification-code">
+                            <div class="verification-code">
                                 <input type="text" name="c1" maxlength="1" required>
                                 <input type="text" name="c2" maxlength="1" required>
                                 <input type="text" name="c3" maxlength="1" required>
@@ -167,7 +167,7 @@ $etape = $_GET['etape'] ?? 'inscription';
                 <?php elseif ($etape === 'connexion') : ?>
 
                     <!-- ÉTAPE 2 : Connexion -->
-                    <section id="connexion">
+                    <section class="connexion">
                         <h1>CONNEXION</h1>
 
                         <?php if (isset($_GET['verifie'])) : ?>
@@ -200,7 +200,7 @@ $etape = $_GET['etape'] ?? 'inscription';
                 <?php else : ?>
 
                     <!-- ÉTAPE 1 : Inscription (par défaut) -->
-                    <section id="inscription">
+                    <section class="inscription">
                         <h1>INSCRIPTION</h1>
 
                         <?php if (isset($erreur_inscription)) : ?>
@@ -238,25 +238,25 @@ $etape = $_GET['etape'] ?? 'inscription';
                 <?php if (isset($_GET['parametres'])) : ?>
 
                     <!-- VUE PARAMÈTRES -->
-                    <section id="profil-banniere">
+                    <section class="profil-banniere">
                         <img src="<?= htmlspecialchars($profil['banniere_profil'] ?? 'placeholder_banniere') ?>" alt="bannière">
-                        <div id="profil-identite">
+                        <div class="profil-identite">
                             <img src="<?= htmlspecialchars($profil['photo_profil'] ?? 'placeholder_photo') ?>" alt="photo de profil">
                             <div>
-                                <p id="profil-pseudo"><?= htmlspecialchars($_SESSION['user']['pseudo_compte']) ?></p>
-                                <p id="profil-nb-suivies"><?= $nb_suivies ?> RADIOS SUIVIES</p>
+                                <p class="profil-pseudo"><?= htmlspecialchars($_SESSION['user']['pseudo_compte']) ?></p>
+                                <p class="profil-nb-suivies"><?= $nb_suivies ?> RADIOS SUIVIES</p>
                             </div>
                         </div>
                     </section>
 
-                    <section id="parametres">
+                    <section class="parametres">
                         <form method="POST" action="profil.php?parametres" id="form-parametres">
                             <input type="hidden" name="action" value="parametres">
 
-                            <div id="parametres-photo">
+                            <div class="parametres-photo">
                                 <p>PHOTO DE PROFIL</p>
                                 <!-- Les photos sont des choix prédéfinis -->
-                                <div id="parametres-photos-liste">
+                                <div class="parametres-photos-liste">
                                     <label>
                                         <input type="radio" name="photo_profil" value="images/profil/photo1.png">
                                         <img src="images/profil/photo1.png" alt="photo 1">
@@ -276,9 +276,9 @@ $etape = $_GET['etape'] ?? 'inscription';
                                 </div>
                             </div>
 
-                            <div id="parametres-banniere">
+                            <div class="parametres-banniere">
                                 <p>BANNIERE</p>
-                                <div id="parametres-bannieres-liste">
+                                <div class="parametres-bannieres-liste">
                                     <label>
                                         <input type="radio" name="banniere_profil" value="images/bannieres/banniere1.png">
                                         <img src="images/bannieres/banniere1.png" alt="bannière 1">
@@ -294,7 +294,7 @@ $etape = $_GET['etape'] ?? 'inscription';
                                 </div>
                             </div>
 
-                            <div id="parametres-infos">
+                            <div class="parametres-infos">
                                 <p>INFORMATIONS PERSONNELLES</p>
                                 <div class="form-champ">
                                     <label for="pseudo">PSEUDO</label>
@@ -306,7 +306,7 @@ $etape = $_GET['etape'] ?? 'inscription';
                                 </div>
                             </div>
 
-                            <div id="parametres-boutons">
+                            <div class="parametres-boutons">
                                 <a href="profil.php" class="bouton-secondaire">ANNULER</a>
                                 <button type="submit" class="bouton-principal">VALIDER</button>
                             </div>
@@ -316,20 +316,20 @@ $etape = $_GET['etape'] ?? 'inscription';
                 <?php else : ?>
 
                     <!-- VUE PROFIL PRINCIPAL -->
-                    <section id="profil-banniere">
+                    <section class="profil-banniere">
                         <img src="<?= htmlspecialchars($profil['banniere_profil'] ?? 'placeholder_banniere') ?>" alt="bannière">
-                        <div id="profil-identite">
+                        <div class="profil-identite">
                             <img src="<?= htmlspecialchars($profil['photo_profil'] ?? 'placeholder_photo') ?>" alt="photo de profil">
                             <div>
-                                <p id="profil-pseudo"><?= htmlspecialchars($_SESSION['user']['pseudo_compte']) ?></p>
-                                <p id="profil-nb-suivies"><?= $nb_suivies ?> RADIOS SUIVIES</p>
+                                <p class="profil-pseudo"><?= htmlspecialchars($_SESSION['user']['pseudo_compte']) ?></p>
+                                <p class="profil-nb-suivies"><?= $nb_suivies ?> RADIOS SUIVIES</p>
                             </div>
                         </div>
-                        <a href="profil.php?parametres" id="bouton-parametres"><img src="placeholder_engrenage" alt="paramètres"></a>
+                        <a href="profil.php?parametres" class="bouton-parametres"><img src="placeholder_engrenage" alt="paramètres"></a>
                     </section>
 
                     <!-- ONGLETS -->
-                    <nav id="profil-onglets">
+                    <nav class="profil-onglets">
                         <a href="profil.php?onglet=abonnements" class="<?= $onglet === 'abonnements' ? 'current' : '' ?>">MES ABONNEMENTS</a>
                         <a href="profil.php?onglet=historique"  class="<?= $onglet === 'historique'  ? 'current' : '' ?>">HISTORIQUE</a>
                         <a href="profil.php?onglet=commentaires" class="<?= $onglet === 'commentaires' ? 'current' : '' ?>">COMMENTAIRES</a>
@@ -337,8 +337,8 @@ $etape = $_GET['etape'] ?? 'inscription';
 
                     <?php if ($onglet === 'abonnements') : ?>
 
-                        <section id="profil-abonnements">
-                            <div id="profil-abonnements-liste">
+                        <section class="profil-abonnements">
+                            <div class="profil-abonnements-liste">
                                 <?php foreach ($abonnements as $radio) : ?>
                                     <div class="radio-carte">
                                         <img src="<?= htmlspecialchars($radio['image_radio']) ?>" alt="<?= htmlspecialchars($radio['nom_radio']) ?>">
@@ -351,8 +351,8 @@ $etape = $_GET['etape'] ?? 'inscription';
 
                     <?php elseif ($onglet === 'historique') : ?>
 
-                        <section id="profil-historique">
-                            <div id="profil-historique-liste">
+                        <section class="profil-historique">
+                            <div class="profil-historique-liste">
                                 <?php foreach ($historique as $ecoute) : ?>
                                     <div class="radio-carte">
                                         <img src="<?= htmlspecialchars($ecoute['image_radio']) ?>" alt="<?= htmlspecialchars($ecoute['nom_radio']) ?>">
@@ -365,8 +365,8 @@ $etape = $_GET['etape'] ?? 'inscription';
 
                     <?php elseif ($onglet === 'commentaires') : ?>
 
-                        <section id="profil-commentaires">
-                            <div id="profil-commentaires-liste">
+                        <section class="profil-commentaires">
+                            <div class="profil-commentaires-liste">
                                 <?php foreach ($commentaires_user as $commentaire) :
                                     $estLike = $radios->estLike($id_compte, $commentaire['id_commentaire']);
                                 ?>

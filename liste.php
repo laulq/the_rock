@@ -21,10 +21,10 @@
 
         <?php if (!isset($_SESSION['user'])): ?><!-- Quand l'utilisateur n'est pas connecté !-->
 
-            <section class="top-radios">
+            <section class="top-radios section-radios">
                 <h1 class="titre">TOP DU MOMENT</h1>
 
-                <div class="top-radios-liste">
+                <div class="scroll-radios-liste">
                     <?php
                     $top_radios = $radios->getTopRadios();
                     $rang = 1;
@@ -41,14 +41,17 @@
             </section>
             <section class="categories">
                 <h1 class="titre">CATÉGORIES</h1>
-                <ul class="choisir_categorie">
-                    <li><button><img src="./images/illus/hard_rock_selection.webp" alt="Sélection de radios hard rock"></button></li>
-                    <li><button><img src="./images/illus/metal_selection.webp" alt="Sélection de radios metal"></button></li>
-                    <li><button><img src="./images/illus/alternatif_selection.webp" alt="Sélection de radios alternatif"></button></li>
+                <ul class="filtres-selection">
+                    <li><button><img src="./images/illus/hard_rock_selection.webp"
+                                alt="Sélection de radios hard rock"></button></li>
+                    <li><button><img src="./images/illus/metal_selection.webp" alt="Sélection de radios metal"></button>
+                    </li>
+                    <li><button><img src="./images/illus/alternatif_selection.webp"
+                                alt="Sélection de radios alternatif"></button></li>
                 </ul>
-                <div class="filtres-radios">
+                <div>
                     <h2 class="sous-titre">FILTRER PAR</h2>
-                    <div>
+                    <div class="filtres-selection">
                         <button>
                             <img src="./images/icônes/medal_white.svg" alt="">
                             POPULARITÉ
@@ -92,28 +95,29 @@
                     </div>
                 </div>
                 </div>
-                <ul class="radios-liste"></ul>
-                <?php
-                $liste_radios = $radios->getRadios();
-                $rang = 1;
-                foreach ($liste_radios as $radio): ?>
-                    <li class="radio-carte">
-                        <img src="<?= htmlspecialchars($radio['image_radio']) ?>"
-                            alt="<?= htmlspecialchars($radio['nom_radio']) ?>">
-                        <p class="radio-nom">
-                            <?= htmlspecialchars($radio['nom_radio']) ?>
-                        </p>
-                        <p class="radio-pays">
-                            <?= htmlspecialchars($radio['localisation_radio']) ?>
-                        </p>
-                    </li>
-                    <?php $rang++; endforeach; ?>
+                <ul class="radios-liste">
+                    <?php
+                    $liste_radios = $radios->getRadios();
+                    $rang = 1;
+                    foreach ($liste_radios as $radio): ?>
+                        <li class="radio-carte">
+                            <img src="<?= htmlspecialchars($radio['image_radio']) ?>"
+                                alt="<?= htmlspecialchars($radio['nom_radio']) ?>">
+                            <p class="radio-nom">
+                                <?= htmlspecialchars($radio['nom_radio']) ?>
+                            </p>
+                            <p class="radio-pays">
+                                <?= htmlspecialchars($radio['localisation_radio']) ?>
+                            </p>
+                        </li>
+                        <?php $rang++; endforeach; ?>
+                </ul>
             </section>
 
         <?php else: ?><!--Quand l'utilisateur est connecté!-->
             <section class="mes-radios">
                 <h1 class="titre">MES RADIOS</h1>
-                <ul class="mes-radios-liste">
+                <ul class="radios-liste">
                     <?php
                     $mes_radios = $radios->getRadiosUtilisateur($_SESSION['user']['id_compte']);
                     foreach ($mes_radios as $radio): ?>
@@ -135,7 +139,7 @@
                         <a href="#" class="bouton-play"><img src="placeholder_bouton_play" alt="play"></a>
                     </li>
                 </ul>
-                <ul class="recommandations-liste">
+                <ul class="radios-liste">
                     <?php
                     $recommandations = $radios->getRecommandations($_SESSION['user']['id_compte']);
                     foreach ($recommandations as $radio): ?>
@@ -162,7 +166,7 @@
             <section class="top-radios">
                 <h1 class="titre">TOP DU MOMENT</h1>
 
-                <ul class="top-radios-liste">
+                <ul class="radios-liste">
                     <?php
                     $top_radios = $radios->getTopRadios();
                     $rang = 1;
@@ -179,9 +183,9 @@
                             <p class="radio-pays">
                                 <?= htmlspecialchars($radio['localisation_radio']) ?>
                             </p>
+                            </div>
+                            <?php $rang++; endforeach; ?>
                         </div>
-                        <?php $rang++; endforeach; ?>
-                </div>
             </section>
             <section class="categories">
                 <h1 class="titre">CATÉGORIES</h1>

@@ -75,10 +75,10 @@ if (isset($_GET['follow']) && isset($_SESSION['user'])) {
 
         <?php if (!isset($_SESSION['user'])): ?>
 
-            <section class="top-radios" class="top-radios">
+            <section class="section-radios">
                 <h2 class="titre">TOP DU MOMENT</h2>
                 <a href="liste.php" class="bouton-principal">VOIR TOUT</a>
-                <ul class="top-radios-liste">
+                <ul class="scroll-radios-liste">
                     <?php
                     $top_radios = $radios->getTopRadios();
                     $rang = 1;
@@ -113,10 +113,10 @@ if (isset($_GET['follow']) && isset($_SESSION['user'])) {
 
         <?php else: ?>
 
-            <section class="dernieres-ecoutes">
+            <section class="section-radios">
                 <h2 class="titre">MES DERNIÈRES ÉCOUTES</h2>
 
-                <ul class="dernieres-ecoutes-liste">
+                <ul class="scroll-radios-liste">
                     <?php
                     $dernieres_ecoutes = $radios->getDernieresEcoutes($_SESSION['user']['id_compte']);
                     foreach ($dernieres_ecoutes as $ecoute): ?>
@@ -135,7 +135,7 @@ if (isset($_GET['follow']) && isset($_SESSION['user'])) {
             <section class="recommandations">
                 <h2 class="titre">RECOMMANDATIONS</h2>
 
-                <ul class="recommandations-liste">
+                <ul class="scroll-radios-liste">
                     <?php
                     $recommandations = $radios->getRecommandations($_SESSION['user']['id_compte']);
                     foreach ($recommandations as $radio): ?>

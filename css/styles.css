@@ -38,7 +38,7 @@ body {
 
 main {
   display: grid;
-  gap: 2rem; /* espace entre tes sections */
+  gap: 2rem; /* espace entre les sections */
 }
 
 section {
@@ -47,18 +47,20 @@ section {
 }
 
 .titre {
-    background: linear-gradient(90deg, #ff3553 0%, rgba(153, 32, 50, 0) 100%);
-    min-width: fit-content;
+  background: linear-gradient(90deg, #ff3553 0%, rgba(153, 32, 50, 0) 100%);
+  min-width: fit-content;
+  width: fit-content; /*ne déborde pas du contenu*/
+  padding-right: 5rem; /*je rajoute de l'espace à droite pour que le dégradé continue un peu*/
 }
 
 .texte {
   font-family: "texte";
 }
-.bouton-principal {  
-    background-color: var(--rouge);
+.bouton-principal {
+  background-color: var(--rouge);
 }
 
-.bouton-secondaire{
+.bouton-secondaire {
   background-color: var(--gris);
 }
 
@@ -67,52 +69,95 @@ section {
   grid-template-columns: repeat(1, 1fr);
 }
 
-/* Pour le dropdown des boutons de filtre */
+/*Affichage des listes de radios*/
+
+.section-radios {
+  overflow-x: hidden; /* évite un scroll horizontal sur la section, on veut que ce soit la liste qui scroll et pas la section*/
+}
+
+.scroll-radios-liste {
+  display: flex;
+  flex-wrap: nowrap; /*pas de retour à la ligne même s'il n'y a plus d'espace, les radios sont en ligne*/
+  gap: 1rem;
+  overflow-x: auto; /* scroll horizontal pour voir les autres (dépassement) */
+  overflow-y: hidden; /* évite un scroll vertical chiant qu'on veut pas */
+  width: 100%; /* se limite à la largeur de son parent */
+  max-width: 100%; /* ne déborde pas hors de la section */
+}
+
+.filtres-selection {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.radios-liste { /*qui ne scrollent pas horizontalement : liste de radios avant et après application des filtres*/
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /*2 colonnes*/
+  gap: 1rem;
+}
+
+/*Suppression de la barre de scroll*/
+
+.scroll-radios-liste::-webkit-scrollbar {
+  display: none; /* sur le web */
+}
+.scroll-radios-liste {
+  scrollbar-width: none; /* pour Firefox */
+}
+
+/*Pour l'affichage de chacunes des cartes radio*/
+
+.radio-nom {
+  font-size: 1.375rem;
+}
+.radio-pays {
+  color: var(--rouge);
+  font-size: 16px;
+}
+
+/* POUR LES MENUS DEROULANTS DES FILTRES */
 .dropdown {
-    position: relative; /* ← ancre le menu en dessous */
+  position: relative; /* ← ancre le menu en dessous */
 }
 
 .dropdown-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.dropdown.open {
-    transform: rotate(180deg);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .dropdown-menu {
-    display: none;
-    position: absolute; /* ← sort du flux, se place sous le bouton */
-    top: 100%;          /* ← juste en dessous du bouton */
-    left: 0;
-    list-style: none;
-    background: var(--gris) ;
-    border: 1px solid ;
-    border-radius: 4px;
-    min-width: 100%;
-    z-index: 50;
-    overflow: hidden;
+  display: none;
+  position: absolute; /* se place sous le bouton */
+  top: 100%; /* juste en dessous du bouton */
+  left: 0;
+  list-style: none;
+  background: var(--gris);
+  border: 1px solid;
+  border-radius: 4px;
+  min-width: 100%;
+  z-index: 50;
+  overflow: hidden;
 }
 
 .dropdown.open .dropdown-menu {
-    display: block; /* ← affiché quand la classe .open est présente */
+  display: block; /* affiché quand la classe .open est présente (voir fichier filtre.js)*/
 }
 
 .dropdown-menu li button {
-    width: 100%;
-    padding: 0.6rem 1rem;
-    background: none;
-    border: none;
-    color: white;
-    text-align: left;
-    font-size: 13px;
-    font-weight: 600;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
 }
 
 .dropdown-menu li button:hover {
-    background: var(--rouge);
+  /*La couleur change au survol, pour l'instant ne fonctionne pas*/
+  background: var(--rouge);
+  cursor: pointer; /*changement de curseur*/
 }
 
 /*Responsive*/
@@ -127,4 +172,10 @@ section {
 
 @media (min-width: 1024px) {
   /* Ordinateurs*/
+  body {
+    font-size: 16px;
+  }
+  .radios-liste {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }

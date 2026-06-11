@@ -4,17 +4,27 @@ const audio = document.getElementById('lecteur-audio');
 init();
 
 function init() {
-    // Les constantes du lecteur sont donc initialisées dans l'init
     const boutonPlay  = document.getElementById('bouton-play');
     const volumeRange = document.getElementById('volume');
     const boutonMute  = document.getElementById('mute');
 
-    audio.volume = volumeRange.value/100; // Colume à 100 par défaut
+    audio.volume = volumeRange.value / 100;
 
-    // Event Listeners pour toutes les actions du lecteur
     boutonPlay.addEventListener('click', toggleAudio);
     volumeRange.addEventListener('input', changerVolume);
     boutonMute.addEventListener('click', toggleMute);
+
+    // Reprend la radio en cours si elle existait
+    const radioSauvegardee = localStorage.getItem('radio_url');
+    const nomSauvegarde    = localStorage.getItem('radio_nom');
+    const imageSauvegardee = localStorage.getItem('radio_image');
+
+    if (radioSauvegardee) {
+        audio.src = radioSauvegardee;
+        document.getElementById('lecteur-nom-radio').textContent = nomSauvegarde ?? '';
+        document.getElementById('lecteur-image').src             = imageSauvegardee ?? '';
+        // On ne relance pas automatiquement — l'utilisateur doit cliquer play
+    }
 }
 
 // Pause ou relance la radio
@@ -49,9 +59,17 @@ function toggleMute(evt) {
 // Lance une radio récupérée depuis le site
 function lancerRadio(url, nom, image) {
     audio.src = url;
+    audio.load();
 
-    audio.play();
+    audio.play().catch(function(erreur) {
+        console.error('Lecture bloquée :', erreur);
+    });
 
     document.getElementById('lecteur-nom-radio').textContent = nom;
     document.getElementById('lecteur-image').src = image;
+
+    // Sauvegarde pour persistance entre pages
+    localStorage.setItem('radio_url', url);
+    localStorage.setItem('radio_nom', nom);
+    localStorage.setItem('radio_image', image);
 }

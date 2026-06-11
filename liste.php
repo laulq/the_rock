@@ -31,7 +31,7 @@
                     foreach ($top_radios as $radio): ?>
                         <div class="radio-carte">
                             <span class="radio-rang"><?= $rang ?></span>
-                            <img src="<?= htmlspecialchars($radio['image_radio']) ?>"
+                            <img class="top-carte carte" src="<?= htmlspecialchars($radio['image_radio']) ?>"
                                 alt="<?= htmlspecialchars($radio['nom_radio']) ?>">
                             <p class="radio-nom"><?= htmlspecialchars($radio['nom_radio']) ?></p>
                             <p class="radio-pays"><?= htmlspecialchars($radio['localisation_radio']) ?></p>
@@ -42,23 +42,43 @@
             <section class="categories">
                 <h1 class="titre">CATÉGORIES</h1>
                 <ul class="filtres-selection">
-                    <li><button><img src="./images/illus/hard_rock_selection.webp"
-                                alt="Sélection de radios hard rock"></button></li>
-                    <li><button><img src="./images/illus/metal_selection.webp" alt="Sélection de radios metal"></button>
+                    <li>
+                        <button>
+                            <picture>
+                                <source media="(min-width: 768px)"
+                                    srcset="./images/illus/hard_rock_selection_desktop.webp">
+                                <img src="./images/illus/hard_rock_selection.webp" alt="Sélection de radios hard rock">
+                            </picture>
+                        </button>
                     </li>
-                    <li><button><img src="./images/illus/alternatif_selection.webp"
-                                alt="Sélection de radios alternatif"></button></li>
+                    <li>
+                        <button>
+                            <picture>
+                                <source media="(min-width: 768px)" srcset="./images/illus/metal_selection_desktop.webp">
+                                <img src="./images/illus/metal_selection.webp" alt="Sélection de radios metal">
+                            </picture>
+                        </button>
+                    </li>
+                    <li>
+                        <button>
+                            <picture>
+                                <source media="(min-width: 768px)"
+                                    srcset="./images/illus/alternatif_selection_desktop.webp">
+                                <img src="./images/illus/alternatif_selection.webp" alt="Sélection de radios alternatif">
+                            </picture>
+                        </button>
+                    </li>
                 </ul>
                 <div>
                     <h2 class="sous-titre">FILTRER PAR</h2>
                     <div class="filtres-selection">
-                        <button>
+                        <button class="filtre-btn">
                             <img src="./images/icônes/medal_white.svg" alt="">
                             POPULARITÉ
                         </button>
 
                         <div class="dropdown">
-                            <button class="dropdown-btn">
+                            <button class="filtre-btn dropdown-btn">
                                 <img src="./images/icônes/tag.svg" alt="">
                                 TAG
                             </button>
@@ -71,13 +91,13 @@
                             </ul>
                         </div>
 
-                        <button>
+                        <button class="filtre-btn">
                             <img src="./images/icônes/AZ.svg" alt="">
                             NOM
                         </button>
 
                         <div class="dropdown">
-                            <button class="dropdown-btn">
+                            <button class="filtre-btn dropdown-btn">
                                 <img src="./images/icônes/earth.svg" alt="">
                                 PAYS
                             </button>
@@ -101,7 +121,7 @@
                     $rang = 1;
                     foreach ($liste_radios as $radio): ?>
                         <li class="radio-carte">
-                            <img src="<?= htmlspecialchars($radio['image_radio']) ?>"
+                            <img class="carte" src="<?= htmlspecialchars($radio['image_radio']) ?>"
                                 alt="<?= htmlspecialchars($radio['nom_radio']) ?>">
                             <p class="radio-nom">
                                 <?= htmlspecialchars($radio['nom_radio']) ?>
@@ -122,7 +142,7 @@
                     $mes_radios = $radios->getRadiosUtilisateur($_SESSION['user']['id_compte']);
                     foreach ($mes_radios as $radio): ?>
                         <li class="radio-carte">
-                            <img src="<?= htmlspecialchars($radio['image_radio']) ?>"
+                            <img class="carte" src="<?= htmlspecialchars($radio['image_radio']) ?>"
                                 alt="<?= htmlspecialchars($radio['nom_radio']) ?>">
                             <p class="radio-nom">
                                 <?= htmlspecialchars($radio['nom_radio']) ?>
@@ -144,7 +164,7 @@
                     $recommandations = $radios->getRecommandations($_SESSION['user']['id_compte']);
                     foreach ($recommandations as $radio): ?>
                         <li class="radio-carte">
-                            <img src="<?= htmlspecialchars($radio['image_radio']) ?>"
+                            <img class="carte" src="<?= htmlspecialchars($radio['image_radio']) ?>"
                                 alt="<?= htmlspecialchars($radio['nom_radio']) ?>">
                             <p class="radio-nom">
                                 <?= htmlspecialchars($radio['nom_radio']) ?>
@@ -175,7 +195,7 @@
                             <span class="radio-rang">
                                 <?= $rang ?>
                             </span>
-                            <img src="<?= htmlspecialchars($radio['image_radio']) ?>"
+                            <img class="carte" src="<?= htmlspecialchars($radio['image_radio']) ?>"
                                 alt="<?= htmlspecialchars($radio['nom_radio']) ?>">
                             <p class="radio-nom">
                                 <?= htmlspecialchars($radio['nom_radio']) ?>
@@ -247,7 +267,7 @@
                 $rang = 1;
                 foreach ($liste_radios as $radio) { ?>
                     <div class="radio-carte">
-                        <img src="<?= htmlspecialchars($radio['image_radio']) ?>"
+                        <img class="carte" src="<?= htmlspecialchars($radio['image_radio']) ?>"
                             alt="<?= htmlspecialchars($radio['nom_radio']) ?>">
                         <p class="radio-nom">
                             <?= htmlspecialchars($radio['nom_radio']) ?>

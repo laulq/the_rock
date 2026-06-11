@@ -2,10 +2,11 @@
 :root {
   --rouge: #ff3553;
   --gris: #1e1e1e;
+  --bord: 0.625rem;
+  --bord-bouton: 0.3rem;
 }
 
 * {
-  background-color: black;
   color: white;
   scroll-behavior: smooth;
   font-family: "titre";
@@ -14,6 +15,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  border: none; /*plus de bordures moches sur les boutons*/
 }
 
 @font-face {
@@ -30,10 +32,57 @@
   position: fixed;
 }
 
+.carrousel{
+  padding: 0;/*pour que la bannière colle les bords (j'ai mis un padding sur les sections*/
+}
+
+.carrousel-wrapper{
+  position: relative;/*pour positionner la hero banner en absolute*/
+}
+
+.carrousel-slide{
+  position: absolute;
+  top: 0;
+  left: 0;/*positionnement pour absolute*/
+  opacity: 0/*toutes cachées par défaut, on montre que la current*/;
+  width: 100%;
+  height: 100%;
+}
+
+.carrousel-slide picture {
+    width: 100%;
+    height: 100%;
+    display: block; /* picture est inline par défaut */
+}
+
+.carrousel-slide img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /*pour que l'image remplisse toute la div sans être déformée*/
+}
+
+.carrousel-slide.current {
+  opacity: 1;
+}
+
+.carrousel-slide-infos {
+  position: relative;
+  z-index: 1; /* le texte passe au-dessus de l'image */
+
+}
+.carrousel-slide-soustitre{
+  background-color: black;
+  min-width: fit-content;
+  width: fit-content; /*ne déborde pas du contenu*/
+  padding: 0.1rem 0.3rem; 
+}
+
 body {
   display: grid;
   grid-template-rows: auto 1fr auto; /* header, main, footer */
   min-height: 100vh;
+  font-size: 1.125rem;
+  background-color: black
 }
 
 main {
@@ -43,7 +92,12 @@ main {
 
 section {
   width: 100%;
-  padding: 2rem 1rem; /*marges (tjrs sur mobile)*/
+  padding: 0.5rem 2rem; /*marges (tjrs sur mobile)*/
+  overflow-x: hidden; /* évite un scroll horizontal sur la section, on veut que ce soit la liste qui scroll et pas la section*/
+  display: flex;
+  flex-direction: column;
+  align-items: center; /*je centre tous mes éléments*/
+  justify-content: center;
 }
 
 .titre {
@@ -51,17 +105,41 @@ section {
   min-width: fit-content;
   width: fit-content; /*ne déborde pas du contenu*/
   padding-right: 5rem; /*je rajoute de l'espace à droite pour que le dégradé continue un peu*/
+  padding-left: 0.3rem;
+  align-self: flex-start; /*de base il se centre dans section, je le place à gauche*/
+}
+
+.titre .sous-titre{
+    font-size: 1.875rem;
+
+}
+.sous-titre{
+  text-align: left; /*ça le place à gauche de l'écran*/
 }
 
 .texte {
   font-family: "texte";
 }
+button{
+  font-size: inherit; /*pour qu'il prenne la mm font size que body*/
+  background: none; /*sinon il le met en blanc par défaut*/
+}
 .bouton-principal {
   background-color: var(--rouge);
+  border-radius: var(--bord-bouton);
+  padding: 0.1rem 0.3rem; 
+  max-height: fit-content;
 }
 
 .bouton-secondaire {
   background-color: var(--gris);
+  border-radius: var(--bord-bouton);
+  padding: 0.1rem 0.3rem; 
+  max-height: fit-content;
+}
+
+.only-desktop {
+  display: none;
 }
 
 .cta-connexion {
@@ -69,20 +147,48 @@ section {
   grid-template-columns: repeat(1, 1fr);
 }
 
+.illu-connexion {
+  max-width: 100%; /*sinon elle est trop grande elle pousse toute la section*/
+  height: auto;
+}
+
 /*Affichage des listes de radios*/
 
-.section-radios {
-  overflow-x: hidden; /* évite un scroll horizontal sur la section, on veut que ce soit la liste qui scroll et pas la section*/
+.carte{
+  border-radius: var(--bord);
+}
+
+.radio-rang{
+  background-color: var(--rouge);
+  font-size: 1.875rem;
+  border-radius: 50%;/*Pour faire un rond*/
+  padding: 0.3rem 0.5rem;
+}
+
+.header-top-radios{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.top-carte{
+box-shadow: 2px 2px 2px 0px var(--rouge);/*ombre sans flou rouge*/
 }
 
 .scroll-radios-liste {
+  padding: 0.5rem 0;
   display: flex;
   flex-wrap: nowrap; /*pas de retour à la ligne même s'il n'y a plus d'espace, les radios sont en ligne*/
-  gap: 1rem;
+  gap: 2rem;
   overflow-x: auto; /* scroll horizontal pour voir les autres (dépassement) */
   overflow-y: hidden; /* évite un scroll vertical chiant qu'on veut pas */
   width: 100%; /* se limite à la largeur de son parent */
   max-width: 100%; /* ne déborde pas hors de la section */
+}
+
+.fleches-navigation {
+  align-self: flex-end;/*flèches nav à droite de l'écran*/
 }
 
 .filtres-selection {
@@ -91,11 +197,13 @@ section {
   gap: 1rem;
   margin-bottom: 1rem;
 }
-.radios-liste { /*qui ne scrollent pas horizontalement : liste de radios avant et après application des filtres*/
+.radios-liste {
+  /*qui ne scrollent pas horizontalement : liste de radios avant et après application des filtres*/
   display: grid;
   grid-template-columns: repeat(2, 1fr); /*2 colonnes*/
   gap: 1rem;
 }
+
 
 /*Suppression de la barre de scroll*/
 
@@ -121,10 +229,13 @@ section {
   position: relative; /* ← ancre le menu en dessous */
 }
 
-.dropdown-btn {
+.filtre-btn {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  background-color: var(--gris);
+  gap: 1rem;
+  border-radius: var(--bord);
+  padding: 0.1rem 0.7rem;
 }
 
 .dropdown-menu {
@@ -164,10 +275,27 @@ section {
 
 @media (min-width: 768px) {
   /*PAS DE MAX WIDTH*/
-  /* Tablettes */
+  /* à partir des tailles tablettes */
+  main {
+        max-width: 1200px;
+        margin: 0 auto; /* centre le bloc dans la page */
+    }
   body {
     font-size: 14px;
   }
+  .titre {
+    align-self: center; /*le titre devient centré*/
+  }
+  .radios-liste {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .only-mobile {
+    display: none;
+  }
+  .only-desktop {
+    display: revert;/*on remet à sa valeur initiale donc on l'affiche*/
+  }
+  
 }
 
 @media (min-width: 1024px) {
@@ -177,5 +305,8 @@ section {
   }
   .radios-liste {
     grid-template-columns: repeat(5, 1fr);
+  }
+  .titre {
+    font-size: 2.5rem;
   }
 }

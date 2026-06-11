@@ -4,7 +4,6 @@
         <a class="header-nav-lien <?= basename($_SERVER['PHP_SELF']) === 'liste.php'   ? 'current' : '' ?>" href="liste.php">LES RADIOS</a>
     </nav>
 
-    <input type="search" id="header-recherche" class="header-recherche" placeholder="TROUVER MA RADIO"> <!-- Loupe dans le ::before en CSS -->
 
     <?php if (!isset($_SESSION['user'])) : ?>
         <a class="header-profil" href="profil.php"><img src="./images/icônes/Avatar.svg" alt="profil"></a>

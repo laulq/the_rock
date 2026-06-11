@@ -23,7 +23,11 @@ function init() {
         audio.src = radioSauvegardee;
         document.getElementById('lecteur-nom-radio').textContent = nomSauvegarde ?? '';
         document.getElementById('lecteur-image').src             = imageSauvegardee ?? '';
-        // On ne relance pas automatiquement — l'utilisateur doit cliquer play
+
+        // Relance automatiquement car l'utilisateur a déjà interagi
+        audio.play().catch(function(erreur) {
+            console.warn('Autoplay bloqué, cliquez play :', erreur);
+        });
     }
 }
 

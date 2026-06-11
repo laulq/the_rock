@@ -8,7 +8,7 @@ function init() {
     const volumeRange = document.getElementById('volume');
     const boutonMute  = document.getElementById('mute');
 
-    audio.volume = volumeRange.value / 100;
+    audio.volume = volumeRange.value/100;
 
     boutonPlay.addEventListener('click', toggleAudio);
     volumeRange.addEventListener('input', changerVolume);
@@ -22,13 +22,22 @@ function init() {
     if (radioSauvegardee) {
         audio.src = radioSauvegardee;
         document.getElementById('lecteur-nom-radio').textContent = nomSauvegarde ?? '';
-        document.getElementById('lecteur-image').src             = imageSauvegardee ?? '';
+        document.getElementById('lecteur-image').src = imageSauvegardee ?? '';
 
         // Relance automatiquement car l'utilisateur a déjà interagi
         audio.play().catch(function(erreur) {
             console.warn('Autoplay bloqué, cliquez play :', erreur);
         });
     }
+
+    // Vide la radio sauvegardée quand on quitte le site et que l'audio est en pause
+    window.addEventListener('beforeunload', function() {
+        if (audio.paused) {
+            localStorage.removeItem('radio_url');
+            localStorage.removeItem('radio_nom');
+            localStorage.removeItem('radio_image');
+        }
+    });
 }
 
 // Pause ou relance la radio

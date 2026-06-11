@@ -71,8 +71,6 @@ if (isset($_SESSION['user'])) {
         $code_verif = str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
         $succes = $utilisateurs->ajouterUtilisateur(
             htmlspecialchars($_POST['pseudo']),
-            htmlspecialchars($_POST['nom'] ?? ''),
-            htmlspecialchars($_POST['prenom'] ?? ''),
             htmlspecialchars($_POST['adresse_mail']),
             $_POST['mdp'],
             $code_verif

@@ -8,7 +8,7 @@ if (!isset($_GET['id'])) {
 }
 
 $id_radio = (int)$_GET['id'];
-$radio    = $radios->getRadio($id_radio);
+$radio = $radios->getRadio($id_radio);
 
 // Redirection si pas de radio
 if (!$radio) {
@@ -46,12 +46,13 @@ if (isset($_SESSION['user'])) {
 }
 
 // On charge les données
-$tags          = $radios->getTagsRadio($id_radio);
-$salon         = $radios->getSalonRadio($id_radio);
-$commentaires  = $salon ? $radios->getCommentaires($salon['id_salon']) : [];
-$suggestions   = $radios->getSuggestions($id_radio);
-$nbAbonnes    = $radios->getNbAbonnes($id_radio);
-$estFavori     = isset($_SESSION['user']) ? $radios->estFavori($_SESSION['user']['id_compte'], $id_radio) : false;
+$tags = $radios->getTagsRadio($id_radio);
+$salon = $radios->getSalonRadio($id_radio);
+$commentaires = $salon ? $radios->getCommentaires($salon['id_salon']) : [];
+$suggestions = $radios->getSuggestions($id_radio);
+$nbAbonnes = $radios->getNbAbonnes($id_radio);
+$estFavori = isset($_SESSION['user']) ? $radios->estFavori($_SESSION['user']['id_compte'], $id_radio) : false;
+$profil = isset($_SESSION['user']) ? $utilisateurs->getProfil($_SESSION['user']['id_compte']) : null;
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +61,7 @@ $estFavori     = isset($_SESSION['user']) ? $radios->estFavori($_SESSION['user']
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>The Rock | <?= htmlspecialchars($radio['nom_radio']) ?></title> <!-- le titre de la page change selon le nom de la radio -->
+        <title>The Rock | <?= htmlspecialchars($radio['nom_radio']) ?></title>
         <meta name="description" content="a compléter">
 
         <link rel="stylesheet" href="./css/styles.css">
@@ -84,7 +85,7 @@ $estFavori     = isset($_SESSION['user']) ? $radios->estFavori($_SESSION['user']
 
                             <div class="radio-actions">
 
-                            <!-- Favori -->
+                                <!-- Favori -->
                                 <?php if (isset($_SESSION['user'])) : ?>
                                     <a href="radio.php?id=<?= $id_radio ?>&favori=1" id="bouton-favori" class="<?= $estFavori ? 'actif' : '' ?>">
                                         <img src="./images/icônes/favorite.svg" alt="favori">
@@ -96,7 +97,9 @@ $estFavori     = isset($_SESSION['user']) ? $radios->estFavori($_SESSION['user']
                                 <?php endif; ?>
 
                                 <!-- Bouton play -->
-                                <a href="#" class="bouton-play-radio"><img src="./images/icônes/PLAY_red_button.svg" alt="play"></a>
+                                <a href="#" class="bouton-play-radio" onclick="lancerRadio('<?= htmlspecialchars($radio['url_radio']) ?>', '<?= htmlspecialchars($radio['nom_radio']) ?>', '<?= htmlspecialchars($radio['image_radio'] ?? '') ?>'); return false;">
+                                    <img src="./images/icônes/PLAY_red_button.svg" alt="play">
+                                </a>
 
                                 <!-- Partage -->
                                 <a href="#" class="bouton-partage">
@@ -126,10 +129,9 @@ $estFavori     = isset($_SESSION['user']) ? $radios->estFavori($_SESSION['user']
                     <section class="radio-commentaires">
                         <h2 class="titre">COMMENTAIRES</h2>
 
-                        <!-- Formulaire d'ajout (à modifier) -->
                         <?php if (isset($_SESSION['user'])) : ?>
                             <div class="commentaire-form">
-                                <img src="<?= htmlspecialchars($profil['photo_profil'] ?? 'placeholder_photo') ?>" alt="photo de profil">
+                                <img src="<?= htmlspecialchars($profil['photo_profil'] ?? 'images/icônes/profil.svg') ?>" alt="photo de profil">
                                 <form method="POST" action="radio.php?id=<?= $id_radio ?>">
                                     <input type="hidden" name="action" value="commenter">
                                     <input type="text" name="contenu" placeholder="Écrire un commentaire" required>
@@ -146,7 +148,7 @@ $estFavori     = isset($_SESSION['user']) ? $radios->estFavori($_SESSION['user']
                                     : false;
                             ?>
                                 <div class="commentaire-carte">
-                                    <img src="placeholder_photo_profil" alt="<?= htmlspecialchars($commentaire['pseudo_compte']) ?>">
+                                    <img src="images/icônes/profil.svg" alt="<?= htmlspecialchars($commentaire['pseudo_compte']) ?>">
                                     <div class="commentaire-carte-infos">
                                         <p class="commentaire-pseudo"><?= htmlspecialchars($commentaire['pseudo_compte']) ?></p>
                                         <p class="commentaire-date"><?= htmlspecialchars($commentaire['date_commentaire']) ?></p>
@@ -155,7 +157,7 @@ $estFavori     = isset($_SESSION['user']) ? $radios->estFavori($_SESSION['user']
                                     <a href="radio.php?id=<?= $id_radio ?>&like=<?= $commentaire['id_commentaire'] ?>"
                                        class="commentaire-like <?= $estLike ? 'like-actif' : '' ?>">
                                         <?= $commentaire['nb_likes'] ?>
-                                        <img src="placeholder_like" alt="like">
+                                        <img src="images/icônes/like.svg" alt="like">
                                     </a>
                                 </div>
                             <?php endforeach; ?>

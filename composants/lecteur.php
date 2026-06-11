@@ -3,16 +3,15 @@
         <div id="lecteur-controles" class="lecteur-controles">
 
             <figure id="lecteur-infos" class="lecteur-infos">
-                <img src="images/icones/profil.svg" alt="pochette radio actuelle" id="lecteur-image">
+                <img src="images/icônes/profil.svg" alt="pochette radio actuelle" id="lecteur-image">
                 <figcaption>
                     <p class="lecteur-nom-radio" id="lecteur-nom-radio">Ecoutez une radio, nan ?</p>
-                    <p class="lecteur-nom-musique" id="lecteur-nom-musique"></p>
                 </figcaption>
             </figure>
 
             <div id="lecteur-controles-bouton" class="lecteur-controles-bouton">
                 <a id="bouton-play" class="bouton-play" href="#">
-                    <img src="images/icones/PLAY_red_button.svg" alt="play/pause" id="bouton-play-img">
+                    <img src="images/icônes/PLAY_red_button.svg" alt="play/pause" id="bouton-play-img">
                 </a>
             </div>
 
@@ -20,7 +19,7 @@
 
             <div id="lecteur-controles-volume" class="lecteur-controles-volume">
                 <a id="mute" class="lecteur-mute" href="#">
-                    <img src="images/icones/sound_waves_high_white.svg" alt="volume">
+                    <img src="images/icônes/sound_waves_high_white.svg" alt="volume">
                 </a>
                 <div id="lecteur-volume" class="lecteur-volume">
                     <label for="volume" class="sr-only">Volume</label>

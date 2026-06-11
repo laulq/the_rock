@@ -1,19 +1,31 @@
-document.querySelectorAll('.dropdown-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        const dropdown = btn.closest('.dropdown');
+init();
 
-        // Ferme les autres dropdowns ouverts
-        document.querySelectorAll('.dropdown.open').forEach(d => {
-            if (d !== dropdown) d.classList.remove('open');
-        });
+function init() {
+    const boutonsFiltres = document.querySelectorAll('.dropdown-btn');
 
-        dropdown.classList.toggle('open');
-        e.stopPropagation();
-    });
-});
+    for (let unBouton of boutonsFiltres) {
+        unBouton.addEventListener('click', ouvrirDropdown);
+    }
 
-// Clic ailleurs → ferme tout
-document.addEventListener('click', () => {
-    document.querySelectorAll('.dropdown.open')
-        .forEach(d => d.classList.remove('open'));
-});
+    document.addEventListener('click', fermerTousDropdowns);
+}
+
+function ouvrirDropdown(evt) {
+    const dropdown = evt.currentTarget.closest('.dropdown');
+
+    // Ferme les autres dropdowns ouverts
+    const dropdownsOuverts = document.querySelectorAll('.dropdown.open');
+    for (let unDropdown of dropdownsOuverts) {
+        if (unDropdown !== dropdown) d.classList.remove('open');
+    }
+
+    dropdown.classList.toggle('open');
+    evt.stopPropagation();
+}
+
+function fermerTousDropdowns() {
+    const dropdownsOuverts = document.querySelectorAll('.dropdown.open');
+    for (let unDropdown of dropdownsOuverts) {
+        unDropdown.classList.remove('open');
+    }
+}
